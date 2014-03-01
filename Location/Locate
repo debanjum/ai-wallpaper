@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#************************************************************#
+#                          Locate                            #
+#                            by                              #
+#                  Debanjum Singh Solanky                    #
+#                    February 22, 2014                       #
+#                                                            #
+#         Retrieve Current Location from Wolfram Alpha       #
+#                       ./Locate_WA                          #
+#************************************************************#
+
+# INITIALISING VARIABLES
+scriptsdir='./Location/'				         #SETTING LOCATION SCRIPTS DIRECTORY
+location="$scriptsdir/location"					 #SETTING CURRENT LOCATION FILE
+iconsdir="$scriptsdir/Icons"                                     #SETTING ICONS DIRECTORY
+notifyicon="$iconsdir/location.svg"                              #SETTING DEFAULT NOTIFICATION ICON LOCATION
+hour=$(date +%H)                                                 #EVALUATING CURRENT TIME
+
+# VALID ARGUMENTS
+[ $# -eq 0 ] && (
+
+# LOCATION UPDATING NOTIFICATION
+#notify-send "Locating" "..." -i "$notifyicon" -t 500 --hint string:transient:1
+
+# BACKING UP OLD LOCATION
+`mv "$scriptsdir/location" "$scriptsdir/location_old"`
+
+# RETRIEVING CURRENT WEATHER REPORT[FROM WOLFRAM ALPHA]
+city=`curl -s 'http://api.wolframalpha.com/v2/query?input=My+Location&appid=YOUR_WOLFRAM_ALPHA_APPID' | grep plaintext | sed -n 's/^.*<plaintext>location | \(.*\)<\/plaintext>/\1/p' | tee "$scriptsdir/location"`
+
+# ERROR CATCHING
+[[ "$city" = "" ]] && ( notify-send "Unable to Retrieve Latest Location" -i "$notifyicon" -t 500 --hint string:transient:1; `mv "$scriptsdir/location_old" "$scriptsdir/location"`)
+
+# INSERT CURRENT LOCATION IN DROPBOX
+city=`cat $scriptsdir/location`
+echo -n "$city" > ./Location/L.txt
+
+# LATEST LOCATION NOTIFICATION
+notify-send "Current Known Location" "$city @ $hour 00" -i "$notifyicon" -t 500 --hint string:transient:1
+)

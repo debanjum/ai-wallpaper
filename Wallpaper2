@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#************************************************************#
+#                      Wallpaper_2.sh                        #
+#                            by                              #
+#                  Debanjum Singh Solanky                    #
+#                    February 22, 2013                       #
+#                                                            #
+# Update Wallpaper based on Current Local Weather Conditions #
+#           ./Wallpaper.sh Current/Forecast City             #
+#                            OR                              #
+#       ./Wallpaper.sh Current/Forecast Country City         #
+#************************************************************#
+
+# INITIALISING VARIABLES
+scriptsdir='./WeatherWall'			 	         #SETTING SCRIPTS DIRECTORY
+wallpapersdir='./.wallpaper'                            	 #SETTING WALLPAPER DIRECTORY
+reportsdir="$scriptsdir/Reports"                                 #SETTING WEATHER REPORTS DIRECTORY
+iconsdir="$scriptsdir/Icons"                                     #SETTING ICONS DIRECTORY
+hour=$(date +%H)                                                 #EVALUATING CURRENT TIME
+timeofday='Unknown'                                              #INITIALISING TIME OF DAY
+notifyicon="$iconsdir/weather.svg"                               #SETTING DEFAULT NOTIFICATION ICON LOCATION
+
+# VALID ARGUMENTS
+[ $# -eq 0 ] && (
+# WALLPAPER UPDATING BASED BY DEFAULT ON (AUTO UPDATED CURRENT WEATHER REPORT) + (AUTO UPDATED LAST KNOWN LOCATION DATA)
+[[ $(cat ./Location/L.txt | grep City_1) != "" ]] && (Wallpaper Current "Wunderground_CityName_1") || (
+[[ $(cat ./Location/L.txt | grep City_2) != "" ]] && (Wallpaper Current "Wunderground_CityName_2") ) ) || (
+
+[ $# -eq 1 ] && (
+# WALLPAPER UPDATING BASED ON (AUTO UPDATED CURRENT WEATHER REPORT) + (AUTO UPDATED LAST KNOWN LOCATION DATA)
+[[ $1 == 'Current' ]] && (
+[[ $(cat ./Location/L.txt | grep City_1) != "" ]] && (Wallpaper Current "Wunderground_CityName_1") || (
+[[ $(cat ./Location/L.txt | grep City_2) != "" ]] && (Wallpaper Current "Wunderground_CityName_2") ) ) || (
+
+# WALLPAPER UPDATING BASED ON (AUTO UPDATED CURRENT WEATHER REPORT) + (AUTO UPDATED LAST KNOWN LOCATION DATA)
+[[ $1 == 'Forecast' ]] && (
+[[ $(cat ./Location/L.txt | grep City_1) != "" ]] && (Wallpaper Forecast "Wunderground_CityName_1") || (
+[[ $(cat ./Location/L.txt | grep City_2) != "" ]] && (Wallpaper Forecast "Wunderground_CityName_2") ) ) ) ) || (
+
+# WEATHER WALLPAPER UPDATE BASED ON USER FED LOCATION DATA
+[ $# -eq 2 ] && ( `Wallpaper "$1" "$2"`) || ([ $# -eq 3 ] && ( `Wallpaper "$1" "$2" "$3"`) || (
+
+# INVALID ARGUMENTS
+[[ $# -ne 0 && $# -ne 1 && $# -ne 2 && $# -ne 3 ]] && (
+echo -e "Invalid Argument(s)\nCommand Format: $0\nOR\nCommand Format: $0 Current/Forecast City\nExample 1: $0 Current \"New Delhi\"\nOR\nCommand Format: $0 Current/Forecast Country City\nExample 2: $0 Current \"London\" \"UK\"")))))
