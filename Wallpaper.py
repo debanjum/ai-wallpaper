@@ -46,6 +46,7 @@ The time is {current_time}.
 
 Use the above information to create a hyper-local, deeply personal painting for me. I'll use it as my phone's wallpaper.
 """.strip()
+standard_wallpaper_path = expanduser("~/Downloads/wallpaper.png")
 
 # Platform
 # Android Termux variables
@@ -151,10 +152,15 @@ def update_wallpaper(prompt):
         with open(wallpaper_path, "wb") as f:
             f.write(img_response.content)
 
-    # Set Wallpaper on Phone
+    # Set Wallpaper on Device
     print(f"3. Set New Wallpaper at: {wallpaper_path}")
-    run(wallpaper_update.format(wallpaper_path))
-    if get_platform() == "mac": run(mac_kill_wallpaper_agent)
+    if get_platform() == "mac":
+        if wallpaper_path != standard_wallpaper_path: run(f"cp {wallpaper_path} {standard_wallpaper_path}")
+        run(wallpaper_update.format(standard_wallpaper_path))
+        run(mac_kill_wallpaper_agent)
+        if wallpaper_path != standard_wallpaper_path: run(f"rm {standard_wallpaper_path}")
+    else:
+        run(wallpaper_update.format(wallpaper_path))
     run(notification.format(f"🏕️ Khoj Pasted Wallpaper on Screen"))
 
 
