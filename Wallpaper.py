@@ -46,15 +46,15 @@ The time is {current_time}.
 
 Use the above information to create a hyper-local, deeply personal painting for me. I'll use it as my phone's wallpaper.
 """.strip()
-standard_wallpaper_path = expanduser("~/Downloads/wallpaper.png")
+standard_wallpaper_path = expanduser("~/Downloads/khoj_wallpaper.png")
 
 # Platform
 # Android Termux variables
-termux_wallpaper_path = expanduser(os.getenv("WALLPAPER_PATH", "~/downloads/khoj_wallpaper.png"))
+termux_wallpaper_path = expanduser(os.getenv("WALLPAPER_PATH", standard_wallpaper_path.lower()))
 termux_wallpaper_update = "termux-wallpaper -f \"{0}\"; termux-wallpaper -l -f \"{0}\";"
 termux_notification = "termux-toast \"{}\""
 # Mac variables
-mac_wallpaper_path = expanduser(os.getenv("WALLPAPER_PATH", "~/Downloads/khoj_wallpaper.png"))
+mac_wallpaper_path = expanduser(os.getenv("WALLPAPER_PATH", standard_wallpaper_path))
 # Note: ensure mac wallpaper settings have "show on all spaces" enabled to update wallpaper on all desktops
 mac_wallpaper_update = "osascript -e 'tell application \"System Events\" to tell every desktop to set picture to \"{}\" as POSIX file'"
 mac_kill_wallpaper_agent = f"cp \"{os.path.dirname(os.path.realpath(__file__))}/KhojWallpaper.plist\" \"{expanduser('~/Library/Application Support/com.apple.wallpaper/Store/Index.plist')}\"; killall WallpaperAgent;"
@@ -158,7 +158,6 @@ def update_wallpaper(prompt):
         if wallpaper_path != standard_wallpaper_path: run(f"cp {wallpaper_path} {standard_wallpaper_path}")
         run(wallpaper_update.format(standard_wallpaper_path))
         run(mac_kill_wallpaper_agent)
-        if wallpaper_path != standard_wallpaper_path: run(f"rm {standard_wallpaper_path}")
     else:
         run(wallpaper_update.format(wallpaper_path))
     run(notification.format(f"🏕️ Khoj Pasted Wallpaper on Screen"))
