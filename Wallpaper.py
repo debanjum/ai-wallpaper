@@ -30,9 +30,14 @@ import urllib.parse
 # Initialize Variables
 # ----------------
 # Environment
+# Khoj server URL
 khoj_host = os.getenv("KHOJ_HOST", "https://app.khoj.dev")
+# Khoj API Key used to access the Khoj API to generate wallpaper
 khoj_api_key = os.getenv("KHOJ_API_KEY")
+# Only generate wallpaper when KHOJ_GENERATE_WALLPAPER is set to true
 khoj_should_generate_wallpaper = os.getenv("KHOJ_GENERATE_WALLPAPER", "true").lower() == "true"
+# Only generate info notification when KHOJ_INFO_NOTIFY is set not set to true
+khoj_info_notify = os.getenv("KHOJ_INFO_NOTIFY", "true").lower() == "true"
 
 # General
 chat_name = "Paint"
@@ -141,7 +146,8 @@ def update_wallpaper(prompt):
     if khoj_should_generate_wallpaper:
         # Generate Image from Prompt
         print(f"1. Generating Wallpaper from Prompt: {prompt}")
-        run(notification.format(f"🏕️ Khoj Painting Wallpaper"))
+        if khoj_info_notify:
+            run(notification.format(f"🏕️ Khoj Painting Wallpaper"))
         image_url = generate_image(prompt)
         if not image_url: return
 
@@ -160,7 +166,8 @@ def update_wallpaper(prompt):
         run(mac_kill_wallpaper_agent)
     else:
         run(wallpaper_update.format(wallpaper_path))
-    run(notification.format(f"🏕️ Khoj Pasted Wallpaper on Screen"))
+    if khoj_info_notify:
+        run(notification.format(f"🏕️ Khoj Pasted Wallpaper on Screen"))
 
 
 # Run the main function
