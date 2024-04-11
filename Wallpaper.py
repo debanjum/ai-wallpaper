@@ -48,6 +48,7 @@ The time is {current_time}.
 - Search online for the current weather here (in SI units).
 - If it is night, search online for the moon phase here.
 - Search my personal notes for my experiences from the last 2 days (use date filters).
+- Do NOT perform weather related search in my documents.
 
 Use the above information to create a hyper-local, deeply personal painting for me. I'll use it as my phone's wallpaper.
 """.strip()
