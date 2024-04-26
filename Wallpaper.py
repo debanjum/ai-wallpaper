@@ -47,8 +47,8 @@ Create a personalized painting using the local weather and my recent experiences
 The time is {current_time}.
 - Search online for the current weather here (in SI units).
 - If it is night, search online for the moon phase here.
-- Search my personal notes for my experiences from the last 2 days (use date filters).
-- Do NOT perform weather related search in my documents.
+- Search my personal notes for ONLY my experiences from the last 2 days and nothing else (use date filters).
+- Do NOT perform any weather, moon phase related search in my notes or documents.
 
 Use the above information to create a hyper-local, deeply personal painting for me. I'll use it as my phone's wallpaper.
 """.strip()
