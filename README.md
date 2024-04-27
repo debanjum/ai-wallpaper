@@ -31,21 +31,28 @@ Prequisites
 Install
 ------------
 
-1. Clone this Repository
+1. Download and Install
+   ```shell
+    # Clone the repository
+    git clone https://github.com/debajum/ai-wallpaper
+
+    # Install dependencies
+    cd ai-wallpaper && pip install .
+   ```
 
 2. Run any of the following commands to paint and update your wallpaper
-   ```python
+   ```shell
    # Minimal
-   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python Wallpaper.py
+   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python src/aiwall/paper.py
 
    # With Custom Prompt
-   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python Wallpaper.py "Generate a wallpaper based on the latest news here"
+   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python src/aiwall/paper.py "Generate a wallpaper based on the latest news here"
 
    # With Custom Wallpaper File Path
-   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> WALLPAPER_PATH="~/Pictures/wallpaper.png" python Wallpaper.py
+   KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> WALLPAPER_PATH="~/Pictures/wallpaper.png" python src/aiwall/paper.py
 
    # With Self-hosted Khoj
-   KHOJ_HOST="http://localhost:42100" python Wallpaper.py
+   KHOJ_HOST="http://localhost:42100" python src/aiwall/paper.py
    ```
 
 Extensions
@@ -54,7 +61,7 @@ Extensions
   - Create a simple shell script to call the AI wallpaper creation command
     ```shell
      cd /path/to/ai/wallpaper/folder/
-     echo "#!/bin/sh\nKHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python $PWD/Wallpaper.py" > wallpaper.sh
+     echo "#!/bin/sh\nKHOJ_API_KEY=<YOUR_KHOJ_API_KEY> python $PWD/src/aiwall/paper.py" > wallpaper.sh
      chmod +x wallpaper.sh
     ```
   - On Android: Use [termux-job-scheduler](https://wiki.termux.com/wiki/Termux:API#:~:text=termux-job-scheduler) on Termux to get yourself a fresh and personal wallpaper painted every 12 hours

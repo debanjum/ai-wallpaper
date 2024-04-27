@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-wallpaper"
+description = "Create fresh, personal AI painted wallpapers"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.9"
+authors = [
+    { name = "Debanjum Singh Solanky" },
+]
+keywords = [
+    "AI",
+    "images",
+    "khoj",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Artistic Software",
+    "Topic :: Adaptive Technologies",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Intended Audience :: Information Technology",
+]
+dependencies = [
+    "rich >= 13.3.1",
+    "requests >= 2.26.0",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/debanjum/ai-wallpaper"
+
+[project.scripts]
+aiwall = "aiwall.paper:generate"
+
+[project.optional-dependencies]
+dev = [
+    "pytest >= 7.1.2",
+    "mypy >= 1.0.1",
+    "black >= 23.1.0",
+    "pre-commit >= 3.0.4",
+]
+
+[tool.hatch.version]
+source = "vcs"
+raw-options.local_scheme = "no-local-version"  # PEP440 compliant version for PyPi
+
+[tool.hatch.build.targets.sdist]
+include = ["src/aiwall"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aiwall"]
+
+[tool.mypy]
+files = "src/aiwall"
+pretty = true
+strict_optional = false
+install_types = true
+ignore_missing_imports = true
+non_interactive = true
+show_error_codes = true
+warn_unused_ignores = false
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"

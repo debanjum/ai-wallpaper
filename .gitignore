@@ -1,8 +1,8 @@
-.*
-!.gitignore
 *~
+.vscode
 .\#*
 \#*\#
 remove.txt
 Location/L.txt
 Location/location_old
+**/__pycache__/

@@ -170,9 +170,13 @@ def update_wallpaper(prompt):
     if khoj_info_notify:
         run(notification.format(f"🏕️ Khoj Pasted Wallpaper on Screen"))
 
+def generate():
+    "Main entrypoint for the script"
+    prompt = default_prompt if len(sys.argv) != 2 else sys.argv[1]
+    update_wallpaper(prompt)
+
 
 # Run the main function
 # ---------------------
 if __name__ == "__main__":
-    prompt = default_prompt if len(sys.argv) != 2 else sys.argv[1]
-    update_wallpaper(prompt)
+    generate()
