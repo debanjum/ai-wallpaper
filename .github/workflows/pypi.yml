@@ -1,0 +1,64 @@
+name: pypi
+
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - 'master'
+    paths:
+      - src/khoj/**
+      - pyproject.toml
+      - .github/workflows/pypi.yml
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - src/khoj/**
+      - pyproject.toml
+      - .github/workflows/pypi.yml
+
+jobs:
+  publish:
+    name: Publish Python Package to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: ⬇️ Install Application
+        run: python -m pip install --upgrade pip && pip install --upgrade .
+
+      - name: ⚙️ Build Python Package
+        run: |
+          # Setup Environment for Reproducible Builds
+          export PYTHONHASHSEED=42
+          export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
+          rm -rf dist
+
+          # Build PyPi Package
+          pipx run build
+
+      - name: 🌡️ Validate Python Package
+        run: |
+          # Validate PyPi Package
+          pipx run check-wheel-contents dist/*.whl --ignore W004
+          pipx run twine check dist/*
+
+      - name: ⏫ Upload Python Package Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: khoj-assistant
+          path: dist/*.whl
+
+      - name: 📦 Publish Python Package to PyPI
+        if: startsWith(github.ref, 'refs/tags') || github.ref == 'refs/heads/master'
+        uses: pypa/gh-action-pypi-publish@v1.8.14
