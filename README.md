@@ -11,54 +11,56 @@
    Get fresh, personal AI painted wallpapers daily
 </p>
 
-Features
---------
+## 💎 Features
 - Get fresh, personal wallpapers painted for you by [khoj ai](https://github.com/khoj-ai/khoj)
 - Automatically weaves your current city, moon phase, weather and (even recent experiences!) into the painting
 - Updates your Android or Mac wallpaper automatically
 - Schedule it to run every day and night
 - Customize the wallpapers by telling khoj what styles and information to use
 
-![](./assets/sample_khoj_wallpaper_2.png)
-
-
-Prequisites
-------------
+## ✅ Prequisites
 
 - Generate a (free) [Khoj API Key](https://app.khoj.dev/config#clients) or [setup a self-hosted Khoj](https://docs.khoj.dev/get-started/setup/)
 - Install [Termux](https://f-droid.org/en/packages/com.termux/) to use on Android
 - Requires a Mac or Android Operating System. *Windows, Linux support if enough demand*
 
-Quickstart
-----------
+## ⚡️ Quickstart
 ```shell
 pip install ai-wallpaper && KHOJ_API_KEY=<YOU_KHOJ_API_KEY> aiwall
 ```
 
-Run Commands
-------
-## Minimal
+## 🎁 Showcase
+| Day | Night |
+|-----|-------|
+| ![](./assets/ai_wallpaper_4.jpg) | ![](./assets/ai_wallpaper_1.jpg) |
+| ![](./assets/ai_wallpaper_5.jpg) | ![](./assets/ai_wallpaper_2.jpg) |
+| ![](./assets/ai_wallpaper_6.jpg) | ![](./assets/ai_wallpaper_3.jpg) |
+
+https://github.com/debanjum/ai-wallpaper/assets/6413477/823c1624-6452-472e-8786-4cb79bcfa029
+
+
+## 🪢 Customize
+### Minimal
   ```shell
    KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> aiwall
   ```
 
-## With Custom Prompt
+### Uze Custom Prompt
   ```shell
    KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> aiwall "Generate a wallpaper based on the latest news here"
   ```
 
-## With Custom Wallpaper Path
+### Use Custom Wallpaper Path
   ```shell
    KHOJ_API_KEY=<YOUR_KHOJ_API_KEY> WALLPAPER_PATH="~/Pictures/wallpaper.png" aiwall
   ```
 
-## With Self-Hosted Khoj
+### Use Self-Hosted Khoj
   ```shell
    KHOJ_HOST="http://localhost:42100" aiwall
   ```
 
-Extensions
-------------
+## 🚀 Upgrade
 ### Automatically get a fresh and personal wallpaper painted for you every day and night
   - Create a simple shell script to call the AI wallpaper creation command
     ```shell
@@ -91,8 +93,7 @@ Extensions
 The AI wallpaper script can automatically incorporate any recent experiences from your notes into it's paintings. To use this you will need to sync your notes with Khoj.
 
 
-Development
------------------
+## 🖥️ Develop
 
 1. Download and Install
    ```shell
@@ -120,8 +121,7 @@ Development
    KHOJ_HOST="http://localhost:42100" python src/aiwall/paper.py
    ```
 
-LICENSE
-------------
+## 🔖 LICENSE
 This program is free software; it is distributed under the GNU General Public License v3.
 
 [GPLv3](LICENSE) © debanjum
