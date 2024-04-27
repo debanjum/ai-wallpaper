@@ -52,7 +52,7 @@ The time is {current_time}.
 
 Use the above information to create a hyper-local, deeply personal painting for me. I'll use it as my phone's wallpaper.
 """.strip()
-standard_wallpaper_path = expanduser("~/Downloads/khoj_wallpaper.png")
+standard_wallpaper_path = expanduser("/tmp/khoj_wallpaper.png")
 
 # Platform
 # Android Termux variables
