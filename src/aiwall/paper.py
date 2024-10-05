@@ -102,11 +102,18 @@ def generate_image(prompt):
     city, region, country = get_location()
 
     # Construct URL with prompt and location
-    url = f'{khoj_host}/api/chat?q={question}&title={chat_name}&city={city}&region={region}&country={country}'
-    print(f"Request: {url}")
+    url = f'{khoj_host}/api/chat'
+    json = {
+        "q": question,
+        "title": chat_name,
+        "city": city,
+        "region": region,
+        "country": country,
+    }
+    print(f"Request: {url}, {json}")
 
     # Ask Khoj to generate image from prompt
-    response = requests.get(url, headers=headers)
+    response = requests.post(url, headers=headers, json=json)
     print(f"Response: {response.text}")
 
     # Extract URL of Generated Image from Chat Response
