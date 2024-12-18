@@ -7,14 +7,14 @@ on:
     branches:
       - 'master'
     paths:
-      - src/khoj/**
+      - src/aiwall/**
       - pyproject.toml
       - .github/workflows/pypi.yml
   pull_request:
     branches:
       - 'master'
     paths:
-      - src/khoj/**
+      - src/aiwall/**
       - pyproject.toml
       - .github/workflows/pypi.yml
 
@@ -56,9 +56,11 @@ jobs:
       - name: ⏫ Upload Python Package Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: khoj-assistant
+          name: ai-wallpaper
           path: dist/*.whl
 
       - name: 📦 Publish Python Package to PyPI
         if: startsWith(github.ref, 'refs/tags') || github.ref == 'refs/heads/master'
-        uses: pypa/gh-action-pypi-publish@v1.8.14
+        uses: pypa/gh-action-pypi-publish@release/v1.12
+        with:
+          print-hash: true

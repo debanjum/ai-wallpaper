@@ -64,7 +64,7 @@ mac_wallpaper_path = expanduser(os.getenv("WALLPAPER_PATH", standard_wallpaper_p
 # Note: ensure mac wallpaper settings have "show on all spaces" enabled to update wallpaper on all desktops
 mac_wallpaper_update = "osascript -e 'tell application \"System Events\" to tell every desktop to set picture to \"{}\" as POSIX file'"
 mac_kill_wallpaper_agent = f"cp \"{os.path.dirname(os.path.realpath(__file__))}/KhojWallpaper.plist\" \"{expanduser('~/Library/Application Support/com.apple.wallpaper/Store/Index.plist')}\"; killall WallpaperAgent;"
-mac_notification = "osascript -e 'display notification \"{}\" with title \"🏮 Khoj\"'"
+mac_notification = "osascript -e 'display notification \"{}\" with title \"🏕️ Khoj\"'"
 
 
 # Create Functions
