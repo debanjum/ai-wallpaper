@@ -118,7 +118,7 @@ def generate_image(prompt):
 
     # Extract URL of Generated Image from Chat Response
     data = response.json()
-    return data.get("image")
+    return data["images"][0] if len(data.get("images", [])) > 0 else None
 
 def run(command):
     "Run command in shell"
